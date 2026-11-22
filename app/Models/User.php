@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-#[Fillable(['name', 'email', 'password'])]
+use Laravel\Sanctum\HasApiTokens;
+#[Fillable(['name', 'email', 'password','avatar','phone','job_title','bio','availability','years_of_expereince','current_team'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use hasApiTokens,HasFactory, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -29,4 +29,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    //Projects created by the user
+    public function ownedProjects()
+    {
+        return $this->hasMany(Project::class,'owner_id');
+    }
+    //The teams he is a member of
+    public function teams(){
+        return $this->belongsToMany(Team::class.'team_members')->withPivot('role')->withTimestamps();
+    }
+    //The files he uploaded
+    public function files(){
+        return $this->hasmany(ProjectFile::class,'uploaded_by');
+    }
+
+
+
+
+
+
 }

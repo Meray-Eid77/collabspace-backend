@@ -24,7 +24,7 @@ return new class extends Migration
     $table->foreignId('reviewer_id')->nullable()->constrained('users')->nullOnDelete();
     $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
     $table->timestamps();
-});
+}); 
     }
 
     /**
