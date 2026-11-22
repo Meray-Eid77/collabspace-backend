@@ -15,8 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('job_title')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('availability')->nullable();
+            $table->unsignedTinyInteger('years_of_experience')->nullable();
+            $table->string('current_team')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
