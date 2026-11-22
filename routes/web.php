@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
+
 
 Route::redirect('/', '/dashboard');
 
@@ -20,4 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::get('/tasks', [TaskController::class, 'index']);
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus']);
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
 });
