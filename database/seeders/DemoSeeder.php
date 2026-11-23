@@ -83,5 +83,25 @@ class DemoSeeder extends Seeder
             ]);
             $task->assignees()->attach($all->random(2)->pluck('id'));
         }
-    }
+    // اجتماعات تجريبية
+$m1 = \App\Models\Meeting::create([
+    'project_id' => $alpha->id, 'created_by' => $meray->id,
+    'title' => 'Design Review', 'description' => 'Review the latest homepage design.',
+    'start_at' => now()->addDay()->setTime(14, 0), 'end_at' => now()->addDay()->setTime(15, 0),
+    'link' => 'https://meet.example.com/design-review',
+]);
+$m1->participants()->attach([$meray->id, $users[0]->id, $users[1]->id]);
+$m1->transcripts()->createMany([
+    ['speaker_id' => $users[0]->id, 'timestamp' => '00:01', 'text' => 'Good morning everyone. Thanks for joining on time.'],
+    ['speaker_id' => $users[1]->id, 'timestamp' => '00:40', 'text' => 'I went through the new homepage design and overall it looks cleaner.'],
+    ['speaker_id' => $meray->id, 'timestamp' => '01:23', 'text' => 'I agree. The layout is better, but the call-to-action isn\'t very clear.'],
+]);
+
+$m2 = \App\Models\Meeting::create([
+    'project_id' => $alpha->id, 'created_by' => $meray->id,
+    'title' => 'Sprint Planning Meeting',
+    'start_at' => now()->addDays(2)->setTime(13, 0), 'end_at' => now()->addDays(2)->setTime(13, 30),
+]);
+$m2->participants()->attach([$meray->id, $users[2]->id]);
+}
 }

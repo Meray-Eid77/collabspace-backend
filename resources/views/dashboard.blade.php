@@ -110,6 +110,19 @@
     </div>
 
    <div class="bg-white p-6 rounded-xl shadow-sm">
+    <div class="flex justify-between mb-2">
+        <h3 class="font-semibold">Upcoming Meetings</h3>
+        <a href="/meetings" class="text-blue-600 text-sm">View All</a>
+    </div>
+    @forelse ($upcomingMeetings as $m)
+        <a href="/meetings/{{ $m->id }}" class="block text-sm py-2 border-b last:border-0">
+            <p>{{ $m->title }}</p>
+            <p class="text-xs text-gray-400">{{ $m->start_at->format('M d, H:i') }} · {{ $m->project?->name }}</p>
+        </a>
+    @empty
+        <p class="text-sm text-gray-400">No upcoming meetings</p>
+    @endforelse
+</div><div class="bg-white p-6 rounded-xl shadow-sm">
     <h3 class="font-semibold mb-2">Upcoming Meetings</h3>
     <p class="text-sm text-gray-400">No upcoming meetings</p>
 </div>

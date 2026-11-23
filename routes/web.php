@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MeetingController;
 
 Route::redirect('/', '/dashboard');
 
@@ -40,4 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/chats/project', [ChatController::class, 'startProject']);
     Route::post('/chats/{conversation}/messages', [ChatController::class, 'send']);
     Route::get('/messages/{message}/attachment', [ChatController::class, 'downloadAttachment']);
+    Route::get('/meetings', [MeetingController::class, 'index']);
+    Route::post('/meetings', [MeetingController::class, 'store']);
+    Route::get('/meetings/{meeting}', [MeetingController::class, 'show']);
+    Route::post('/meetings/{meeting}/summary', [MeetingController::class, 'summary']);
+    Route::delete('/meetings/{meeting}', [MeetingController::class, 'destroy']);
     });

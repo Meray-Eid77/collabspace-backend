@@ -7,7 +7,7 @@ use App\Models\ProjectFile;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Models\Meeting;
 class DashboardController extends Controller
 {
     public function index(Request $request)
@@ -45,9 +45,13 @@ class DashboardController extends Controller
         ])->orderBy('name')->take(5)->get();
 
         $recentFiles = ProjectFile::with('uploader')->latest()->take(3)->get();
-
+        $upcomingMeetings = Meeting::with('project')
+    ->where('start_at', '>=', now())
+    ->orderBy('start_at')
+    ->take(3)
+    ->get();
         return view('dashboard', compact(
-            'projects', 'stats', 'activeProjects', 'upcomingTasks', 'teamStatus', 'recentFiles'
+            'projects', 'stats', 'activeProjects', 'upcomingTasks', 'teamStatus', 'recentFiles','upcomingMeetings'
         ));
     }
 }
