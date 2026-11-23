@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_files', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('unploaded_by')->constrained('users')->cascadeOnDelete();
-            $table->string('name');
-            $table->string('path');
-            $table->string('mime_type')->nullable();
-            $table->unsignedBigInteger('size')->default(0);
-            $table->timestamps();
-        });
+      Schema::create('project_files', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('project_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('uploaded_by')->constrained('users')->cascadeOnDelete();
+    $table->string('name');
+    $table->string('path');
+    $table->string('mime_type')->nullable();
+    $table->unsignedBigInteger('size')->default(0);
+    $table->timestamps();
+});
     }
 
     /**
