@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChatController;
 
 Route::redirect('/', '/dashboard');
 
@@ -34,4 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::get('/profile/settings', [ProfileController::class, 'settings']);
     Route::put('/profile', [ProfileController::class, 'update']);
+    Route::get('/chats', [ChatController::class, 'index']);
+    Route::post('/chats/direct', [ChatController::class, 'startDirect']);
+    Route::post('/chats/project', [ChatController::class, 'startProject']);
+    Route::post('/chats/{conversation}/messages', [ChatController::class, 'send']);
+    Route::get('/messages/{message}/attachment', [ChatController::class, 'downloadAttachment']);
     });

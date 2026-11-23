@@ -47,6 +47,10 @@ class User extends Authenticatable
     public function files(){
         return $this->hasmany(ProjectFile::class,'uploaded_by');
     }
+    public function conversations()
+{
+    return $this->belongsToMany(Conversation::class, 'conversation_members')->withTimestamps();
+}
 
 
 
