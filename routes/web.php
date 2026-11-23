@@ -8,6 +8,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\ReportController;
 
 Route::redirect('/', '/dashboard');
 
@@ -46,4 +47,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/meetings/{meeting}', [MeetingController::class, 'show']);
     Route::post('/meetings/{meeting}/summary', [MeetingController::class, 'summary']);
     Route::delete('/meetings/{meeting}', [MeetingController::class, 'destroy']);
+    Route::get('/reports', [ReportController::class, 'index']);
+Route::post('/reports', [ReportController::class, 'store']);
     });
