@@ -97,7 +97,7 @@
         </div>
     @endforeach
 </div>
-<p class="text-sm text-gray-500 mt-4">لإضافة أو نقل المهام: <a class="text-blue-600" href="/tasks?project_id={{ $project->id }}">افتحي لوحة المهام</a></p>
+<p class="text-sm text-gray-500 mt-4">To add or move tasks, <a class="text-blue-600" href="/tasks?project_id={{ $project->id }}">open the task board</a>.</p>
 @endif
 
 {{-- ============ TEAMS ============ --}}

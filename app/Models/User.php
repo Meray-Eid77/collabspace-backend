@@ -38,6 +38,11 @@ class User extends Authenticatable
     public function teams(){
         return $this->belongsToMany(Team::class.'team_members')->withPivot('role')->withTimestamps();
     }
+    // Tasks assigned to the user
+    public function tasks()
+    {
+    return $this->belongsToMany(Task::class, 'task_assignees')->withTimestamps();
+    }
     //The files he uploaded
     public function files(){
         return $this->hasmany(ProjectFile::class,'uploaded_by');
