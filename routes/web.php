@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
-
+use App\Http\Controllers\ProfileController;
 
 Route::redirect('/', '/dashboard');
 
@@ -31,4 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/teams/{team}/members/{user}', [ProjectController::class, 'removeMember']);
     Route::post('/projects/{project}/files', [ProjectController::class, 'uploadFile']);
     Route::get('/files/{file}/download', [ProjectController::class, 'downloadFile']);
-});
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::get('/profile/settings', [ProfileController::class, 'settings']);
+    Route::put('/profile', [ProfileController::class, 'update']);
+    });
