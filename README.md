@@ -88,7 +88,7 @@ Main groups: auth, dashboard, projects, tasks, teams, files, meetings, conversat
 The collection and environment are in the `postman` folder:
 
 - `Collabspace.postman_collection.json`
-- `Collabspace.postman_environment.json`
+- `CollabspaceLocal.postman_environment.json`
 
 Import both, select the environment, and run **Login** first. Its script saves the token into the `token` variable, so the other requests pick it up automatically. Run **Logout** last, since it deletes the token.
 
