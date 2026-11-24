@@ -11,6 +11,7 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AiController;
 
+
 Route::redirect('/', '/dashboard');
 
 Route::middleware('guest')->group(function () {
@@ -49,10 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/meetings/{meeting}/summary', [MeetingController::class, 'summary']);
     Route::delete('/meetings/{meeting}', [MeetingController::class, 'destroy']);
     Route::get('/reports', [ReportController::class, 'index']);
-Route::post('/reports', [ReportController::class, 'store']);
- Route::get('/ai', [AiController::class, 'index']);
-Route::post('/ai', [AiController::class, 'ask']);
-Route::delete('/ai', [AiController::class, 'clear']);
+    Route::post('/reports', [ReportController::class, 'store']);
+    Route::get('/ai', [AiController::class, 'index']);
+    Route::post('/ai', [AiController::class, 'ask']);
+    Route::delete('/ai', [AiController::class, 'clear']);
+    Route::get('/me', [AuthController::class, 'me']);
 
 
 

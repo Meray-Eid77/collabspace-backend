@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-
+    // لوحة Kanban (كل المشاريع أو مشروع محدد)
     public function index(Request $request)
     {
         $projects = Project::orderBy('name')->get();
@@ -40,6 +40,7 @@ class TaskController extends Controller
         return back()->with('success', 'Task created');
     }
 
+    // نقل المهمة بين الأعمدة
     public function updateStatus(Request $request, Task $task)
     {
         $request->validate(['status' => ['required', 'in:todo,in_progress,in_review,completed']]);
