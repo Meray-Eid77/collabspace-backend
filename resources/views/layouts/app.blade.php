@@ -17,6 +17,7 @@
                 <a href="/chats">Chats</a>
                 <a href="/meetings">Meetings</a>
                 <a href="/reports">Reports</a>
+                <a href="/ai">Ask AI</a>
             </div>
         </div>
         <div class="flex items-center gap-4 text-sm">

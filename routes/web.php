@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AiController;
 
 Route::redirect('/', '/dashboard');
 
@@ -49,4 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/meetings/{meeting}', [MeetingController::class, 'destroy']);
     Route::get('/reports', [ReportController::class, 'index']);
 Route::post('/reports', [ReportController::class, 'store']);
-    });
+ Route::get('/ai', [AiController::class, 'index']);
+Route::post('/ai', [AiController::class, 'ask']);
+Route::delete('/ai', [AiController::class, 'clear']);
+
+
+
+
+});
