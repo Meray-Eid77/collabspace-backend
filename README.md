@@ -92,6 +92,8 @@ The collection and environment are in the `postman` folder:
 
 Import both, select the environment, and run **Login** first. Its script saves the token into the `token` variable, so the other requests pick it up automatically. Run **Logout** last, since it deletes the token.
 
+Upload File: in the Body tab (form-data), set the key to `file`, type File, and pick any file before sending. Postman does not keep the file path after import.
+
 ## Notes and limitations
 
 - Ask AI and the meeting summary are not connected to a real AI service. They build the answer from the database data. The logic is in one method each, so swapping in a real API would be easy.
