@@ -61,7 +61,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "me"
+              ]
             }
           },
           "response": []
@@ -108,9 +114,20 @@
           "name": "Logout",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "logout"
+              ]
             }
           },
           "response": []
@@ -141,9 +158,33 @@
           "name": "Create Project",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Beta\",\"priority\":\"high\",\"deadline\":\"2026-12-30\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/projects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "projects"
+              ]
             }
           },
           "response": []
@@ -466,6 +507,16 @@
           "request": {
             "method": "POST",
             "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
             "url": {
               "raw": "{{base_url}}/projects/1/files",
               "host": [
@@ -508,9 +559,33 @@
           "name": "List Meetings",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"otp\": \"{{otp}}\",\n  \"purpose\": \"reset_password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/meetings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "meetings"
+              ]
             }
           },
           "response": []
@@ -520,8 +595,23 @@
           "request": {
             "method": "POST",
             "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Test\",\"start_at\":\"2026-12-01 10:00\",\"end_at\":\"2026-12-01 11:00\",\"participants\":[2,3]}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/meetings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "meetings"
+              ]
             }
           },
           "response": []
@@ -532,7 +622,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/meetings/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "meetings",
+                "1"
+              ]
             }
           },
           "response": []
@@ -540,10 +637,18 @@
         {
           "name": "Generate Summary",
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/meetings/1/summary",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "meetings",
+                "1",
+                "summary"
+              ]
             }
           },
           "response": []
@@ -559,7 +664,19 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/conversations?type=direct",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "conversations"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "direct"
+                }
+              ]
             }
           },
           "response": []
@@ -606,13 +723,13 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/conversations/ptoject",
+              "raw": "{{base_url}}/conversations/project",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "conversations",
-                "ptoject"
+                "project"
               ]
             }
           },
@@ -724,7 +841,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{base_url}}/dashboard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "dashboard"
+              ]
             }
           },
           "response": []
