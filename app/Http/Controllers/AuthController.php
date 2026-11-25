@@ -11,25 +11,20 @@ class AuthController extends Controller
     public function showLogin() { return view('auth.login'); }
     public function showRegister() { return view('auth.register'); }
 
-   public function login(LoginRequest $request)
-{
-    $user = User::where('email', $request->email)->first();
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-    if (! $user || ! \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Invalid email or password',
-        ], 401);
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect('/dashboard');
+        }
+
+        return back()->withErrors(['email' => 'Invalid email or password'])->withInput();
     }
-
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Logged in successfully',
-        'data' => ['user' => $user, 'token' => $token],
-    ]);
-}
 
     public function register(Request $request)
     {
@@ -53,11 +48,4 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
-    public function me(Request $request)
-{
-    return response()->json([
-        'success' => true,
-        'data' => $request->user(),
-    ]);
-}
 }
