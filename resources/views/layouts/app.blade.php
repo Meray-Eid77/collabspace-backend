@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Collabspace')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+@include('partials.theme')
 </head>
 <body class="bg-gray-50 text-gray-800">
     <nav class="bg-white border-b px-8 py-4 flex items-center justify-between">
@@ -25,6 +27,7 @@
             <form method="POST" action="/logout">
                 @csrf
                 <button class="text-red-500">Logout</button>
+                <button type="button" onclick="toggleTheme()" class="border rounded-lg px-3 py-1 text-xs">Theme</button>
             </form>
         </div>
     </nav>

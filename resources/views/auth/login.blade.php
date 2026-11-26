@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Sign In</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @include('partials.theme')
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
     <div class="bg-white rounded-2xl shadow p-8 w-full max-w-md">
