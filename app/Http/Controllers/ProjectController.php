@@ -8,12 +8,14 @@ use App\Models\ProjectFile;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $projects = Project::withCount('files')
-            ->with('teams.members')
+        $projects = Project::visibleTo($request->user())->withCount('files')
+    ->with('teams.members')
             ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
             ->when($request->status, fn ($q, $s) => $q->where('status', $s))
             ->latest()
@@ -41,6 +43,7 @@ class ProjectController extends Controller
 
   public function show(Request $request, Project $project)
 {
+    Gate::authorize('view', $project);
     $project->load(['owner', 'teams.members', 'files.uploader', 'tasks.assignees']);
 
     $tab = $request->get('tab', 'overview');
@@ -61,6 +64,7 @@ class ProjectController extends Controller
 
 public function storeTeam(Request $request, Project $project)
 {
+    Gate::authorize('update', $project);
     $data = $request->validate(['name' => ['required', 'string', 'max:255']]);
     $project->teams()->create($data);
 
@@ -69,6 +73,7 @@ public function storeTeam(Request $request, Project $project)
 
 public function addMember(Request $request, Team $team)
 {
+    Gate::authorize('update', $team->project);
     $data = $request->validate([
         'user_id' => ['required', 'exists:users,id'],
         'role' => ['nullable', 'string', 'max:100'],
@@ -83,6 +88,7 @@ public function addMember(Request $request, Team $team)
 
 public function removeMember(Team $team, User $user)
 {
+    Gate::authorize('update', $team->project);
     $team->members()->detach($user->id);
 
     return redirect("/projects/{$team->project_id}?tab=teams")->with('success', 'Member removed');
@@ -90,6 +96,7 @@ public function removeMember(Team $team, User $user)
 
 public function uploadFile(Request $request, Project $project)
 {
+    Gate::authorize('view', $project);
     $request->validate(['file' => ['required', 'file', 'max:10240']]); // 10MB
 
     $file = $request->file('file');
@@ -108,6 +115,9 @@ public function uploadFile(Request $request, Project $project)
 
 public function downloadFile(ProjectFile $file)
 {
-    return Storage::disk('local')->download($file->path, $file->name);
-}
+    Gate::authorize('view', $file->project);
+return response()->download(
+    Storage::disk('local')->path($file->path),
+    $file->name
+);}
 }

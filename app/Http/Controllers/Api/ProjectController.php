@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $projects = Project::withCount('files')
-            ->with('owner:id,name')
+       $projects = Project::visibleTo($request->user())->withCount('files')
+    ->with('owner:id,name')
             ->when($request->search, fn ($q, $s) => $q->where('name', 'like', "%{$s}%"))
             ->when($request->status, fn ($q, $s) => $q->where('status', $s))
             ->latest()
@@ -44,6 +45,7 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
+        Gate::authorize('view', $project);
         $project->load(['owner:id,name', 'teams.members:id,name', 'files', 'tasks.assignees:id,name']);
 
         $total = $project->tasks->count();
@@ -64,6 +66,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
+        Gate::authorize('update', $project);
         $data = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -81,6 +84,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
+        Gate::authorize('delete', $project);
         $project->delete();
 
         return response()->json(['success' => true, 'message' => 'Project deleted']);

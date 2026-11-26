@@ -42,4 +42,11 @@ class Project extends Model
     {
         return $this->hasMany(ProjectFile::class);
     }
+    public function scopeVisibleTo($query, User $user)
+    {
+    return $query->where(function ($w) use ($user) {
+        $w->where('owner_id', $user->id)
+          ->orWhereHas('teams.members', fn ($m) => $m->where('users.id', $user->id));
+    });
+}
 }
